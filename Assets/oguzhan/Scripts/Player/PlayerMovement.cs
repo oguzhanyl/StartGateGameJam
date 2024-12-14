@@ -7,7 +7,7 @@ public class PlayerMovement : MonoBehaviour
 {
     [Header("References")]
     private CharacterController controller;
-    [SerializeField] private CinemachineVirtualCamera virtualCamera;
+    public CinemachineVirtualCamera virtualCamera;
 
     [Header("Movement Settings")]
     [SerializeField] private float moveSpeed = 5f;
@@ -17,11 +17,16 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float turningSpeed = 2f;
     [SerializeField] private float gravity = 9.18f;
     [SerializeField] private float jumpHeight = 2f;
+    [SerializeField] private float rotSpeed = 50f;
 
     private float verticalVelocity;
     private float currentSpeed;
     private float currentSpeedMultiplier;
     private float xRotation;
+
+    [Header("Recoil")]
+    private Vector3 targetRecoil = Vector3.zero;
+    private Vector3 currentRecoil = Vector3.zero;
 
     [Header("Input")]
     [SerializeField] private float mouseSensitivity;
@@ -82,9 +87,25 @@ public class PlayerMovement : MonoBehaviour
 
         xRotation = Mathf.Clamp(xRotation, -90, 90);
 
-        virtualCamera.transform.localRotation = Quaternion.Euler(xRotation, 0, 0);
+        virtualCamera.transform.localRotation = Quaternion.Slerp(virtualCamera.transform.localRotation, Quaternion.Euler(xRotation + currentRecoil.y, currentRecoil.x, 0), Time.deltaTime * rotSpeed);
 
         transform.Rotate(Vector3.up * mouseX);
+    }
+
+    public void ApplyAimRecoil(GunData gunData)
+    {
+        float recoilX = Random.Range(-gunData.a_maxRecoil.x, gunData.a_maxRecoil.x) * gunData.a_recoilAmount;
+        float recoilY = Random.Range(-gunData.a_maxRecoil.y, gunData.a_maxRecoil.y) * gunData.a_recoilAmount;
+
+        targetRecoil += new Vector3(recoilX, recoilY, 0);
+
+        currentRecoil = Vector3.MoveTowards(currentRecoil, targetRecoil, Time.deltaTime * gunData.a_recoilSpeed);
+    }
+
+    public void ResetAimRecoil(GunData gunData)
+    {
+        currentRecoil = Vector3.MoveTowards(currentRecoil, Vector3.zero, Time.deltaTime * gunData.a_resetRecoilSpeed);
+        targetRecoil = Vector3.MoveTowards(targetRecoil, Vector3.zero, Time.deltaTime * gunData.a_resetRecoilSpeed);
     }
 
     private float VerticalForceCalculation()
