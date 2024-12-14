@@ -1,7 +1,9 @@
 using Cinemachine;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public abstract class Gun : MonoBehaviour
 {
@@ -13,6 +15,9 @@ public abstract class Gun : MonoBehaviour
 
     public GameObject bulletHolePrefab;
     public GameObject bulletHitParticlePrefab;
+
+    [Header("Current Ammo")]
+    public TextMeshProUGUI ammoText;
 
     public AudioSource audioSource;
 
@@ -64,8 +69,11 @@ public abstract class Gun : MonoBehaviour
     {
         isReloading = true;
         Debug.Log(gunData.gunName + " is reloading...");
+        PlayReloadSound();
 
         yield return new WaitForSeconds(gunData.reloadTime);
+
+        ammoText.text = "7";
 
         currentAmmo = gunData.magazineSize;
         isReloading = false;
@@ -99,6 +107,7 @@ public abstract class Gun : MonoBehaviour
         isShooting = true;
 
         currentAmmo--;
+        ammoText.text = currentAmmo.ToString();
 
         // recoil();
         // muzzleFlash();
@@ -144,6 +153,14 @@ public abstract class Gun : MonoBehaviour
         if(gunData.fireSound != null && audioSource != null)
         {
             audioSource.PlayOneShot(gunData.fireSound);
+        }
+    }
+
+    private void PlayReloadSound()
+    {
+        if(gunData.reloadSound != null && audioSource != null)
+        {
+            audioSource.PlayOneShot(gunData.reloadSound);
         }
     }
 

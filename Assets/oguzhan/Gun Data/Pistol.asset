@@ -18,7 +18,7 @@ MonoBehaviour:
     m_Bits: 64
   shootingRange: 100
   fireRate: 4
-  magazineSize: 10
+  magazineSize: 7
   reloadTime: 2
   a_recoilAmount: 1
   a_maxRecoil: {x: 1, y: 2}
@@ -31,3 +31,4 @@ MonoBehaviour:
   bulletTrailPrefab: {fileID: 5000079282433029717, guid: 1158866a5b830ba4a96de689d3a29d6e, type: 3}
   bulletSpeed: 300
   fireSound: {fileID: 8300000, guid: 7798b2eebea8cc04ca1266331ae82689, type: 3}
+  reloadSound: {fileID: 8300000, guid: 036e4c752399a6f47835a2c7f4f50577, type: 3}

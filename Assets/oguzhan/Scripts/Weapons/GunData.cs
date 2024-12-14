@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 [CreateAssetMenu(fileName = "NewGunData", menuName = "Gun/GunData")]
 public class GunData : ScriptableObject
@@ -35,4 +36,5 @@ public class GunData : ScriptableObject
 
     [Header("SFX")]
     public AudioClip fireSound;
+    public AudioClip reloadSound;
 }
