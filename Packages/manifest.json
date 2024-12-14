@@ -1,5 +1,9 @@
 {
   "dependencies": {
+<<<<<<< Updated upstream
+=======
+    "com.unity.2d.sprite": "1.0.0",
+>>>>>>> Stashed changes
     "com.unity.ai.navigation": "1.1.5",
     "com.unity.cinemachine": "2.10.3",
     "com.unity.modules.ai": "1.0.0",
