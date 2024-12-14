@@ -6,7 +6,7 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
     [Header("References")]
-    private CharacterController controller;
+    public CharacterController controller;
     public CinemachineVirtualCamera virtualCamera;
 
     [Header("Movement Settings")]
@@ -21,7 +21,7 @@ public class PlayerMovement : MonoBehaviour
 
     private float verticalVelocity;
     private float currentSpeed;
-    private float currentSpeedMultiplier;
+    public float currentSpeedMultiplier;
     private float xRotation;
 
     [Header("Recoil")]

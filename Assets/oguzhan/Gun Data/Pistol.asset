@@ -28,3 +28,6 @@ MonoBehaviour:
   d_maxRecoil: {x: 1, y: 2}
   d_recoilSpeed: 1200
   d_resetRecoilSpeed: 1
+  bulletTrailPrefab: {fileID: 5000079282433029717, guid: 1158866a5b830ba4a96de689d3a29d6e, type: 3}
+  bulletSpeed: 300
+  fireSound: {fileID: 8300000, guid: 7798b2eebea8cc04ca1266331ae82689, type: 3}

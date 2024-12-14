@@ -1,3 +1,4 @@
+using Cinemachine;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,6 +6,21 @@ using UnityEngine;
 public abstract class Gun : MonoBehaviour
 {
     public GunData gunData;
+    public Transform gunMuzzle;
+
+    private WeaponAnim weaponAnim;
+    private CinemachineImpulseSource recoilShakeImpulseSource;
+
+    public GameObject bulletHolePrefab;
+    public GameObject bulletHitParticlePrefab;
+
+    public AudioSource audioSource;
+
+    [SerializeField] GameObject muzzleFlash;
+    [SerializeField] GameObject explosions;
+    [SerializeField] GameObject smoke;
+    [HideInInspector] public bool isShooting = false;
+
     [HideInInspector] public PlayerMovement playerController;
     [HideInInspector] public Transform cameraTransform;
 
@@ -22,12 +38,18 @@ public abstract class Gun : MonoBehaviour
 
         playerController = transform.root.GetComponent<PlayerMovement>();
         cameraTransform = playerController.virtualCamera.transform;
+        weaponAnim = GetComponent<WeaponAnim>();
+
+        audioSource = GetComponent<AudioSource>();
+        recoilShakeImpulseSource = GetComponent<CinemachineImpulseSource>();
     }
 
     public virtual void Update()
     {
         playerController.ResetAimRecoil(gunData);
         ResetDirectionalRecoil();
+
+        MuzzleFlash(isShooting);
     }
 
     public void TryReload()
@@ -74,6 +96,8 @@ public abstract class Gun : MonoBehaviour
 
     private void HandleShoot()
     {
+        isShooting = true;
+
         currentAmmo--;
 
         // recoil();
@@ -84,6 +108,10 @@ public abstract class Gun : MonoBehaviour
 
         playerController.ApplyAimRecoil(gunData);
         ApplyDirectionalRecoil();
+        weaponAnim.isRecoiling = true;
+        recoilShakeImpulseSource.GenerateImpulse();
+
+        PlayFireSound();
     }
 
     public abstract void Shoot();
@@ -102,6 +130,21 @@ public abstract class Gun : MonoBehaviour
     {
         d_currentRecoil = Vector3.MoveTowards(d_currentRecoil, Vector3.zero, Time.deltaTime * gunData.a_resetRecoilSpeed);
         d_targetRecoil = Vector3.MoveTowards(d_targetRecoil, Vector3.zero, Time.deltaTime * gunData.a_resetRecoilSpeed);
+    }
+
+    private void MuzzleFlash(bool activate)
+    {
+        muzzleFlash.SetActive(activate);
+        explosions.SetActive(activate);
+        smoke.SetActive(activate);
+    }
+
+    private void PlayFireSound()
+    {
+        if(gunData.fireSound != null && audioSource != null)
+        {
+            audioSource.PlayOneShot(gunData.fireSound);
+        }
     }
 
 }
