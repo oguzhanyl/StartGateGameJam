@@ -29,7 +29,7 @@ public class PlayerMovement : MonoBehaviour
     private Vector3 currentRecoil = Vector3.zero;
 
     [Header("Input")]
-    [SerializeField] private float mouseSensitivity;
+   [SerializeField] public float mouseSensitivity;
     private float moveInput;
     private float turnInput;
     private float mouseX;

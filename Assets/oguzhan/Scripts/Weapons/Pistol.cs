@@ -10,12 +10,12 @@ public class Pistol : Gun
     {
         base.Update();
 
-        if (Input.GetButtonDown("Fire1"))
+        if (Input.GetMouseButtonDown(0))
         {
             TryShoot();
         }
 
-        if (Input.GetButtonUp("Fire1"))
+        if (Input.GetMouseButtonUp(0))
         {
             isShooting = false;
         }

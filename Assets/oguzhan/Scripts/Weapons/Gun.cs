@@ -121,23 +121,28 @@ public abstract class Gun : MonoBehaviour
 
     private void HandleShoot()
     {
-        isShooting = true;
 
-        currentAmmo--;
-        ammoText.text = currentAmmo.ToString();
+        if (Time.timeScale > 0f)
+        {
+            isShooting = true;
 
-        // recoil();
-        // muzzleFlash();
+            currentAmmo--;
+            ammoText.text = currentAmmo.ToString();
 
-        Debug.Log(gunData.gunName + " Shot!, Bullets left: " + currentAmmo);
-        Shoot();
+            // recoil();
+            // muzzleFlash();
 
-        playerController.ApplyAimRecoil(gunData);
-        ApplyDirectionalRecoil();
-        weaponAnim.isRecoiling = true;
-        recoilShakeImpulseSource.GenerateImpulse();
+            Debug.Log(gunData.gunName + " Shot!, Bullets left: " + currentAmmo);
+            Shoot();
 
-        PlayFireSound();
+            playerController.ApplyAimRecoil(gunData);
+            ApplyDirectionalRecoil();
+            weaponAnim.isRecoiling = true;
+            recoilShakeImpulseSource.GenerateImpulse();
+
+            PlayFireSound();
+        }
+        
     }
 
     public abstract void Shoot();
