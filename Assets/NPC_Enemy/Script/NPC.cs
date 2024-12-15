@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using JetBrains.Annotations;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -38,18 +39,18 @@ public class NPC : MonoBehaviour
         }
     }
 
-    IEnumerator Shoot()
+    public IEnumerator Shoot()
     {
         while (true)
         {
-            yield return new WaitForSeconds(0.75f);
+            yield return new WaitForSeconds(1.01f);
 
             if (isShoot)
             {
                 // klon mermi oluþtur ve hareket ettir
                 Rigidbody clone = Instantiate(bullet, spawner.position, spawner.rotation);
-                clone.velocity = (Character.position - spawner.position).normalized * 20f; // Hedefe doðru hýzlandýr
-                Destroy(clone.gameObject, 1.2f); // 1.2 saniye sonra yok et
+                clone.velocity = (Character.position - spawner.position).normalized * 40f; // Hedefe doðru hýzlandýr
+                Destroy(clone.gameObject, 1f); // 1 saniye sonra yok et
             }
         }
     }

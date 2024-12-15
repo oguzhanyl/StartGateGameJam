@@ -1,6 +1,8 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class EnemySpawner : MonoBehaviour
 {
@@ -16,13 +18,18 @@ public class EnemySpawner : MonoBehaviour
 
     private IEnumerator SpawnEnemies()
     {
-        while (EnemyCount < 5)
+        while (EnemyCount < 21)
         {
-            xPos = Random.Range(-5, 5);
-            zPos = Random.Range(-5, 5);
+            xPos = Random.Range(-10, 10);
+            zPos = Random.Range(-10, 10);
             Instantiate(theEnemy, new Vector3(xPos, 1, zPos), Quaternion.identity);
-            yield return new WaitForSeconds(2);
+            yield return new WaitForSeconds(1f);
             EnemyCount += 1;
+            if (EnemyCount == 20)
+            {
+                Debug.Log("KIRILDI");
+                break;
+            }
         }
     }
 }
