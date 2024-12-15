@@ -18,6 +18,10 @@ public abstract class Gun : MonoBehaviour
 
     [Header("Current Ammo")]
     public TextMeshProUGUI ammoText;
+    public TextMeshProUGUI reloadingText;
+    [SerializeField] Image image;
+    float currentValue;
+    public float speed = 50f;
 
     public AudioSource audioSource;
 
@@ -71,9 +75,22 @@ public abstract class Gun : MonoBehaviour
         Debug.Log(gunData.gunName + " is reloading...");
         PlayReloadSound();
 
-        yield return new WaitForSeconds(gunData.reloadTime);
+        reloadingText.gameObject.SetActive(true);
+        currentValue += speed * Time.deltaTime;
+        image.fillAmount = 0f;
+        float elapsedTime = 0f;
 
-        ammoText.text = "7";
+        while(elapsedTime < gunData.reloadTime)
+        {
+            elapsedTime += Time.deltaTime;
+            image.fillAmount = Mathf.Clamp01(elapsedTime/ gunData.reloadTime);
+            yield return null;
+        }
+
+        //yield return new WaitForSeconds(gunData.reloadTime);
+        image.fillAmount = 0f;
+        reloadingText.gameObject.SetActive(false);
+        ammoText.text = gunData.magazineSize.ToString();
 
         currentAmmo = gunData.magazineSize;
         isReloading = false;
