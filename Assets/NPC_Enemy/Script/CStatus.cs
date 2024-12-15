@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class EngineerHP : MonoBehaviour
 {
-    [SerializeField] float cHealth, maxHealt = 50f;
+    [SerializeField] public float cHealth, maxHealt = 50f;
 
     // Start is called before the first frame update
     void Start()

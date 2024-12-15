@@ -20,14 +20,14 @@ public class EnemySpawner : MonoBehaviour
     {
         while (EnemyCount < 21)
         {
-            xPos = Random.Range(-10, 10);
-            zPos = Random.Range(-10, 10);
-            Instantiate(theEnemy, new Vector3(xPos, 1, zPos), Quaternion.identity);
-            yield return new WaitForSeconds(1f);
+            //xPos = Random.Range(-10, 10);
+            //zPos = Random.Range(-10, 10);
+            Instantiate(theEnemy, new Vector3(xPos, 4, zPos), Quaternion.identity);
+            yield return new WaitForSeconds(3f);
             EnemyCount += 1;
             if (EnemyCount == 20)
             {
-                Debug.Log("KIRILDI");
+                Debug.Log("GEÇÝT KIRILIYOR");
                 break;
             }
         }
