@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Enemy_Status : MonoBehaviour
 {
-    public int health = 5; // Düþmanýn baþlangýç caný
+    public int health = 2; // Düþmanýn baþlangýç caný
 
     public void TakeDamage(int damage)
     {

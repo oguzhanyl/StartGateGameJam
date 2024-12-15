@@ -20,8 +20,8 @@ public class EnemySpawner : MonoBehaviour
     {
         while (EnemyCount < 21)
         {
-            //xPos = Random.Range(-10, 10);
-            //zPos = Random.Range(-10, 10);
+            xPos = Random.Range(-10, 10);
+            zPos = Random.Range(-10, 10);
             Instantiate(theEnemy, new Vector3(xPos, 4, zPos), Quaternion.identity);
             yield return new WaitForSeconds(3f);
             EnemyCount += 1;
