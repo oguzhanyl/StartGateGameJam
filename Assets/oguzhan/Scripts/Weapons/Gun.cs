@@ -24,6 +24,8 @@ public abstract class Gun : MonoBehaviour
     public float speed = 50f;
 
     public AudioSource audioSource;
+    public Slider sfxSlider;
+    private const string VolumePrefKey = "VolumeLevel";
 
     [SerializeField] GameObject muzzleFlash;
     [SerializeField] GameObject explosions;
@@ -51,6 +53,9 @@ public abstract class Gun : MonoBehaviour
 
         audioSource = GetComponent<AudioSource>();
         recoilShakeImpulseSource = GetComponent<CinemachineImpulseSource>();
+
+        LoadVolumeSettings();
+        InitializeSlider();
     }
 
     public virtual void Update()
@@ -184,6 +189,40 @@ public abstract class Gun : MonoBehaviour
         {
             audioSource.PlayOneShot(gunData.reloadSound);
         }
+    }
+
+    private void LoadVolumeSettings()
+    {
+        float savedVolume = PlayerPrefs.GetFloat(VolumePrefKey, 0.5f);
+        if (audioSource != null)
+        {
+            audioSource.volume = savedVolume;
+        }
+    }
+
+    private void InitializeSlider()
+    {
+        if (sfxSlider != null && audioSource != null)
+        {
+            sfxSlider.value = audioSource != null ? audioSource.volume : 0.5f;
+            sfxSlider.onValueChanged.AddListener(SetVolume);
+        }
+    }
+
+    public void SetVolume(float volume)
+    {
+        if(audioSource != null)
+        {
+            audioSource.volume = volume;
+        }
+
+        SaveVolumeSettings(volume);
+    }
+
+    private void SaveVolumeSettings(float volume)
+    {
+        PlayerPrefs.SetFloat(VolumePrefKey, volume);
+        PlayerPrefs.Save();
     }
 
 }
