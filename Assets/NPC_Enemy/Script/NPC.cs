@@ -23,12 +23,25 @@ public class NPC : MonoBehaviour
         Vector3 distance = this.transform.position - Character.position;
         distance.y = 0; // Y eksenindeki farký yok sayýyoruz
 
-        if (distance.magnitude >= 5)
+        if (distance.magnitude >= 15 && distance.magnitude <= 40)
         {
             agent.isStopped = false;
             // Karaktere doðru hareket
             agent.destination = Character.position;
             isShoot = true;
+            this.transform.LookAt(Character);
+        }
+        else if (distance.magnitude > 40 && distance.magnitude <= 80)
+        {
+            isShoot = false;
+            agent.isStopped = false;
+            agent.destination = Character.position;
+            this.transform.LookAt(Character);
+        }
+        else if (distance.magnitude > 80)
+        {
+            isShoot = false;
+            agent.isStopped = true;
         }
         else
         {
@@ -43,7 +56,7 @@ public class NPC : MonoBehaviour
     {
         while (true)
         {
-            yield return new WaitForSeconds(1.01f);
+            yield return new WaitForSeconds(2f);
 
             if (isShoot)
             {

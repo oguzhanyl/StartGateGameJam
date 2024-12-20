@@ -1,10 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class EngineerHP : MonoBehaviour
 {
-    [SerializeField] public float cHealth, maxHealt = 50f;
+    [SerializeField] public float cHealth, maxHealt = 100f;
+    public TextMeshProUGUI HealthText;
 
     // Start is called before the first frame update
     void Start()
@@ -16,6 +19,7 @@ public class EngineerHP : MonoBehaviour
     {
         cHealth -= damageAmount;
         Debug.Log($"Engineer {1} hasar aldý. SAÐLIK: {cHealth}");
+        HealthText.text = cHealth.ToString();
 
         if (cHealth <= 0)
         {

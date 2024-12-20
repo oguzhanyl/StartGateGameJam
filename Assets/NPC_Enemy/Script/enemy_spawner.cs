@@ -7,8 +7,8 @@ using Random = UnityEngine.Random;
 public class EnemySpawner : MonoBehaviour
 {
     public GameObject theEnemy;
-    public int xPos;
-    public int zPos;
+    public float xPos;
+    public float zPos;
     public int EnemyCount;
 
     private void Start()
@@ -18,14 +18,14 @@ public class EnemySpawner : MonoBehaviour
 
     private IEnumerator SpawnEnemies()
     {
-        while (EnemyCount < 21)
+        while (EnemyCount < 11)
         {
-            xPos = Random.Range(-10, 10);
-            zPos = Random.Range(-10, 10);
-            Instantiate(theEnemy, new Vector3(xPos, 4, zPos), Quaternion.identity);
-            yield return new WaitForSeconds(3f);
+            //xPos = Random.Range(-10, 10);
+            //zPos = Random.Range(-10, 10);
+            Instantiate(theEnemy, new Vector3(xPos, 7, zPos), Quaternion.identity);
+            yield return new WaitForSeconds(4f);
             EnemyCount += 1;
-            if (EnemyCount == 20)
+            if (EnemyCount == 10)
             {
                 Debug.Log("GEÇÝT KIRILIYOR");
                 break;
