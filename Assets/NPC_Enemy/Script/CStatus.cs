@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class EngineerHP : MonoBehaviour
@@ -24,6 +25,7 @@ public class EngineerHP : MonoBehaviour
         if (cHealth <= 0)
         {
             Destroy(gameObject);
+            SceneManager.LoadScene("StartScreen");
         }
     }
 }
