@@ -26,6 +26,9 @@ public class EngineerHP : MonoBehaviour
         {
             Destroy(gameObject);
             SceneManager.LoadScene("StartScreen");
+
+            Cursor.lockState = CursorLockMode.Confined;
+            Cursor.visible = true;
         }
     }
 }
