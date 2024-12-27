@@ -12,6 +12,7 @@ public class NPC : MonoBehaviour
     public Transform spawner;         // Merminin spawn noktasý
     bool isShoot = false;             // Ateþ etme durumu
 
+
     void Start()
     {
         agent = GetComponent<NavMeshAgent>();
@@ -28,7 +29,7 @@ public class NPC : MonoBehaviour
             agent.isStopped = false;
             // Karaktere doðru hareket
             agent.destination = Character.position;
-            isShoot = true;
+            isShoot = false;
             this.transform.LookAt(Character);
         }
         else if (distance.magnitude > 40 && distance.magnitude <= 80)
@@ -56,7 +57,7 @@ public class NPC : MonoBehaviour
     {
         while (true)
         {
-            yield return new WaitForSeconds(2f);
+            yield return new WaitForSeconds(2.13f);
 
             if (isShoot)
             {
